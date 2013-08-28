@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 18px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+
+var margin = {top: 20, right: 80, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+
+
+var ylabels = ["\u028C","\u028C\u0308","\u0264","\u028A","\u0252","\u0254/\u0252","o","\u00E6","a","iu:","e:u","\u025Bu","ju:","iu","eu/iu","\u0251:/\u0254","\u0251:\u028A/\u0254:\u028A","ou","\u0254u","\u0259\u028A","o\u028A","o:u","\u0254:","o:","a\u028A","\u0251u","\u0259u","\u028Au","u:","\u025B:i","\u00E6:i","\u00E6j","eI","\u00E6:","a:","\u025B:","e:", "aI", "ai", "\u028Ci", "\u0259i", "Ii", "i:"];
+
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+ 
+
+  
+  svg.append("text")
+     .attr("transform", "translate(0," + 10 + ")")
+     .text( function(d) { console.log(ylabels.length); return ylabels.length; })
+     .text( function(d) { return ylabels; });
+  
+
+  svg.append("text")
+    .attr("transform", "translate(0," + 50 + ")")
+    .text(function(d) { return ylabels[40]; })
+    
+  svg.append("text")
+    .attr("transform", "translate(0," + 70 + ")")
+    .text(function(d) { return ylabels[41]; })
+
+  svg.append("text")
+    .attr("transform", "translate(0," + 90 + ")")
+    .text(function(d) { return ylabels[42]; })
+  
+
+
+</script>

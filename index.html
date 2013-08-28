@@ -23,6 +23,24 @@ body {
   stroke-width: 1.5px;
 }
 
+//define grid line style
+//cf: http://www.d3noob.org/2013/01/adding-grid-lines-to-d3js-graph.html
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+
 </style>
 <body>
 <script src="http://d3js.org/d3.v3.js"></script>
@@ -70,6 +88,22 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+//Define fns to generate x and y grid lines
+function make_x_axis() {        
+    return d3.svg.axis()
+        .scale(x)
+         .orient("bottom")
+         .ticks(13)
+         //.ticks(d3.time.weeks, 2600)
+}
+
+function make_y_axis() {        
+    return d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(43)
+}
+
 d3.tsv("data_tmp.tsv", function(error, data) {
   color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
@@ -107,6 +141,15 @@ d3.tsv("data_tmp.tsv", function(error, data) {
       .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom ) + ")")
       .style("text-anchor", "middle")
       .text("Year");
+
+  //draw x-axis grid lines
+  svg.append("g")         
+        .attr("class", "grid")
+        .attr("transform", "translate(0," + height + ")")
+        .call(make_x_axis()
+            .tickSize(-height, 0, 0)
+            .tickFormat("")
+        )    
    
 
   svg.append("g")
@@ -118,6 +161,14 @@ d3.tsv("data_tmp.tsv", function(error, data) {
       .attr("dy", ".91em")
       .style("text-anchor", "end")
       .text("Vowel sounds");
+
+  //draw y-axis grid lines
+   svg.append("g")         
+        .attr("class", "grid")
+        .call(make_y_axis()
+            .tickSize(-width, 0, 0)
+            .tickFormat("")
+        )    
 
 
   var city = svg.selectAll(".city")
